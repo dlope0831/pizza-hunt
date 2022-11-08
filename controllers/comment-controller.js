@@ -1,3 +1,4 @@
+const { trusted } = require('mongoose');
 const { Comment, Pizza } = require('../models');
 
 const commentController = {
@@ -26,7 +27,7 @@ const commentController = {
         Comment.findOneAndUpdate(
           { _id: params.commentId },
           { $push: { replies: body } },
-          { new: true }
+          { new: true, runValidators: true }
         )
           .then(dbPizzaData => {
             if (!dbPizzaData) {
